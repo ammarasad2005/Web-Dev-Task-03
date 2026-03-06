@@ -67,6 +67,17 @@ app.get('/dashboard', isLoggedIn, (req, res) => {
   res.send('Welcome ' + req.session.user);
 });
 
+// Logout Route
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.send('Error logging out');
+    } else {
+      res.send('Logout successful');
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
