@@ -53,6 +53,20 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Authentication middleware
+function isLoggedIn(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.send('Please login first');
+  }
+}
+
+// Dashboard Route (Protected)
+app.get('/dashboard', isLoggedIn, (req, res) => {
+  res.send('Welcome ' + req.session.user);
+});
+
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
